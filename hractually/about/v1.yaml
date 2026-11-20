@@ -1,0 +1,54 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://schemas.cavatinasolutions.com/hractually/about/v1.yaml
+$comment: '1.0'
+title: About
+description: The page owner's own copy.
+type: object
+additionalProperties: false
+required:
+  - quote
+  - bioBlurb
+  - bioSubtitle
+  - title
+  - socialLinks
+  - bio
+properties:
+  $schema:
+    type: string
+    description: The URL of this schema. Lets editors and tools find the rules the file follows.
+  quote:
+    type: string
+    description: The line the owner is pulled out on.
+    minLength: 10
+    maxLength: 300
+    pattern: ^\S([\s\S]*\S)?$
+  bioBlurb:
+    type: string
+    description: The short bio, for where the full one will not fit. Blank lines separate paragraphs.
+    minLength: 50
+    maxLength: 2000
+    pattern: ^\S([\s\S]*\S)?$
+  bioSubtitle:
+    type: string
+    description: The line beneath the about page's heading, in plain text.
+    minLength: 10
+    maxLength: 200
+    pattern: ^\S[^<>]*\S$
+  title:
+    type: string
+    description: The owner's job title, in plain text.
+    minLength: 2
+    maxLength: 100
+    pattern: ^\S[^<>]*\S$
+  socialLinks:
+    type: array
+    description: Where to find the owner personally, as opposed to the site's own accounts, in the order they should be shown.
+    uniqueItems: true
+    items:
+      $ref: https://schemas.cavatinasolutions.com/hractually/social-link/v1.yaml
+  bio:
+    type: string
+    description: 'The bio in full, as HTML: each paragraph in its own <p>.'
+    minLength: 50
+    maxLength: 20000
+    pattern: ^<p>[\s\S]*</p>$

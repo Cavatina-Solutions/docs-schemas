@@ -19,6 +19,7 @@ const types = [
 // The repo's own scopes, one per part of it a change can be about.
 const scopes = [
     { value: 'socius', description: 'The Socius schemas (socius/)' },
+    { value: 'hra', description: 'The HRA schemas (hractually/)' },
     { value: 'verify', description: 'The schema verifier (scripts/verify.ts)' },
     { value: 'repo', description: 'Repo-wide: tooling, hooks, CLAUDE.md, governance' },
     { value: 'deps', description: 'Dependency bumps' },

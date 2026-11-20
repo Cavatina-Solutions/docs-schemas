@@ -1,0 +1,29 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://schemas.cavatinasolutions.com/hractually/verdicts/v1.yaml
+$comment: '1.0'
+title: Verdicts
+description: The list of short 'HR, actually' verdicts surfaced on the site.
+type: object
+additionalProperties: false
+required:
+  - verdicts
+properties:
+  $schema:
+    type: string
+    description: The URL of this schema. Lets editors and tools find the rules the file follows.
+  verdicts:
+    type: array
+    description: Every verdict, in the order they should be considered. Order is not guaranteed to be the display order.
+    minItems: 1
+    uniqueItems: true
+    items:
+      $ref: '#/$defs/verdict'
+$defs:
+  verdict:
+    type: string
+    description: A single verdict. One or two sentences, written in the site's voice.
+    minLength: 20
+    maxLength: 400
+    pattern: ^\S.*\S$
+    examples:
+      - If the only acceptable answer to the CEO is yes, what you hired wasn’t HR, actually; it was applause.

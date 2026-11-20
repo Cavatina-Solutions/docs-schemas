@@ -1,0 +1,34 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://schemas.cavatinasolutions.com/hractually/social-link/v1.yaml
+$comment: '1.0'
+title: Social link
+description: One place someone can be found, shared by the site's accounts and the owner's own.
+type: object
+additionalProperties: false
+required:
+  - name
+  - url
+  - icon
+  - description
+properties:
+  name:
+    type: string
+    description: The platform as a reader would name it.
+    minLength: 1
+    maxLength: 40
+    pattern: ^\S([\s\S]*\S)?$
+  url:
+    type: string
+    description: Absolute https URL of the profile or page.
+    pattern: ^https://\S+$
+    maxLength: 2000
+  icon:
+    type: string
+    description: Font Awesome icon name, as the site imports it.
+    pattern: ^fa[A-Z][A-Za-z0-9]*$
+  description:
+    type: string
+    description: One short line saying what is there.
+    minLength: 1
+    maxLength: 80
+    pattern: ^\S([\s\S]*\S)?$

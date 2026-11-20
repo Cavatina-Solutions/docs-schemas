@@ -1,0 +1,20 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://schemas.cavatinasolutions.com/hractually/social-links/v1.yaml
+$comment: '1.0'
+title: Social links
+description: Where to find HR, Actually through the site’s own accounts.
+type: object
+additionalProperties: false
+required:
+  - socialLinks
+properties:
+  $schema:
+    type: string
+    description: The URL of this schema. Lets editors and tools find the rules the file follows.
+  socialLinks:
+    type: array
+    description: The site’s own accounts, separate from the owner’s personal links in about.json, in the order they should be shown.
+    minItems: 1
+    uniqueItems: true
+    items:
+      $ref: https://schemas.cavatinasolutions.com/hractually/social-link/v1.yaml

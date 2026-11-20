@@ -1,0 +1,47 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://schemas.cavatinasolutions.com/hractually/press-credentials/v1.yaml
+$comment: '1.0'
+title: Press credentials
+description: 'The press credentials the publication is issuing right now. This list is the current active set: removing an entry revokes that credential rather than erasing the record that it existed.'
+type: object
+additionalProperties: false
+required:
+  - credentials
+properties:
+  $schema:
+    type: string
+    description: The URL of this schema. Lets editors and tools find the rules the file follows.
+  credentials:
+    type: array
+    description: Everyone currently credentialed. Empty when nobody is, which is a valid state rather than a missing one.
+    uniqueItems: true
+    items:
+      $ref: '#/$defs/credential'
+$defs:
+  credential:
+    type: object
+    description: One continuing credential. Its id is its identity; name and title are the current facts about the person holding it.
+    additionalProperties: false
+    required:
+      - id
+      - name
+      - title
+    properties:
+      id:
+        type: string
+        description: 'The credential''s permanent identity: a lowercase canonical UUID, generated once when the person is first credentialed and preserved through every later edit. Changing it says "this is a different credential", which revokes the previous one.'
+        pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$
+        examples:
+          - 3f9b1c2e-5a47-4e6d-9f20-8c1d4b6a7e53
+      name:
+        type: string
+        description: The holder's name as it should be shown, in plain text.
+        minLength: 2
+        maxLength: 120
+        pattern: ^\S[^<>]*\S$
+      title:
+        type: string
+        description: The holder's job title, in plain text. A promotion is an edit to this field; the credential and its id carry on.
+        minLength: 2
+        maxLength: 120
+        pattern: ^\S[^<>]*\S$

@@ -1,0 +1,56 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://schemas.cavatinasolutions.com/hractually/linkedin-posts/v1.yaml
+$comment: '1.0'
+title: LinkedIn posts
+description: The site’s LinkedIn posts it shows, the newest featured on the home page. The site works out each post’s date from its link, so the order here does not matter.
+type: object
+additionalProperties: false
+required:
+  - linkedInPosts
+properties:
+  $schema:
+    type: string
+    description: The URL of this schema. Lets editors and tools find the rules the file follows.
+  linkedInPosts:
+    type: array
+    description: Every post the site shows, each one public on LinkedIn.
+    minItems: 1
+    uniqueItems: true
+    items:
+      $ref: '#/$defs/linkedInPost'
+$defs:
+  linkedInPost:
+    type: object
+    description: One LinkedIn post, as the site lists it.
+    additionalProperties: false
+    required:
+      - url
+      - title
+      - summary
+    properties:
+      url:
+        type: string
+        description: The post’s link, from “Copy link to post” in its … menu on LinkedIn. It carries the post’s activity number, which the site needs; the code from “Embed this post” does not.
+        pattern: ^https://www\.linkedin\.com/(posts/\S*-activity-|feed/update/urn:li:activity:)[0-9]{16,20}(\D\S*)?$
+        maxLength: 2000
+        examples:
+          - https://www.linkedin.com/feed/update/urn:li:activity:7505249276113997825/
+      title:
+        type: string
+        description: A headline for the post, shown on the home page card, in the list and above the post.
+        minLength: 1
+        maxLength: 120
+        pattern: ^\S([\s\S]*\S)?$
+      summary:
+        type: string
+        description: One or two sentences saying what the post is about, shown beneath the title.
+        minLength: 1
+        maxLength: 300
+        pattern: ^\S([\s\S]*\S)?$
+      height:
+        type: integer
+        description: The height, in pixels, from the code under “Embed this post”, so the post shows without scrolling. Without it, the post shows at a standard height and scrolls.
+        minimum: 200
+        maximum: 5000
+        examples:
+          - 1950
